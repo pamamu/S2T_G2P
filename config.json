@@ -1,0 +1,8 @@
+{
+  "init_devel": 5,
+  "train_devel": 5,
+  "base_dict": "resources/dics/es.dic",
+  "sequitur_path": "lib/sequitur",
+  "max_iterations": 25,
+  "max_improving": 5
+}
