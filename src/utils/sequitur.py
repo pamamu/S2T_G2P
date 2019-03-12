@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import os.path
 import subprocess
 
@@ -15,13 +13,14 @@ def generate_phonetic_dic(words_path):
     """
     config = read_config_file()
 
-    base = '/Users/pablomaciasmunoz/anaconda3/envs/S2T_G2P/bin/python'  # TODO DELETE IN CONTAINER
-    command = os.path.join(config['sequitur_path'], 'g2p.py')
+    # base = '/Users/pablomaciasmunoz/anaconda3/envs/S2T_G2P/bin/python'  # TODO DELETE IN CONTAINER
+    # command = os.path.join(config['sequitur_path'], 'g2p.py')
+    command = 'g2p.py'
 
     out_words_path = os.path.join(tmp_folder, 'words.dic')
     f = open(out_words_path, 'w')
 
-    script = [base, command,
+    script = [command,
               '--model', get_last_model(),
               '--apply', words_path]
     p = subprocess.call(script, stdout=f)
@@ -45,7 +44,8 @@ def improve_dic(phonetic_dic):
 
     for word in open(phonetic_dic):
         word_sim = word.split()[0]
-        if not check_word(word_sim, completed_lines_hash) and not search_file(word_sim, vocab_in):
+        word_encode = word_sim.encode('utf8')
+        if not check_word(word_encode, completed_lines_hash) and not search_file(word_encode, vocab_in):
             vocab_out.write(word_sim + '\n')
             dic_out.write(word)
 
@@ -104,13 +104,14 @@ def improve_model(model):
     """
     config = read_config_file()
 
-    base = '/Users/pablomaciasmunoz/anaconda3/envs/S2T_G2P/bin/python'  # TODO DELETE IN CONTAINER
-    command = os.path.join(config['sequitur_path'], 'g2p.py')
+    # base = '/Users/pablomaciasmunoz/anaconda3/envs/S2T_G2P/bin/python'  # TODO DELETE IN CONTAINER
+    # command = os.path.join(config['sequitur_path'], 'g2p.py')
+    command = 'g2p.py'
 
     n = get_last_model_number() + 1
 
     out_model_path = os.path.join(models_folder, 'model{}.pm'.format(n))
-    script = [base, command,
+    script = [command,
               '--model', model, '--ramp-up',
               '--train', config['train_devel'],
               '--write-model',
@@ -122,17 +123,17 @@ def improve_model(model):
     return save_last_model(out_model_path)
 
 
-def install_sequitur():
-    """
-    TODO DOCUMENTATION
-    :return:
-    """
-    script = ['pip', 'install', 'numpy']
-    p = subprocess.Popen(script, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    p.wait()
-    script = ['pip', 'install', 'git+https://github.com/sequitur-g2p/sequitur-g2p@master']
-    p = subprocess.Popen(script, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    p.wait()
+# def install_sequitur():
+#     """
+#     TODO DOCUMENTATION
+#     :return:
+#     """
+#     script = ['pip', 'install', 'numpy']
+#     p = subprocess.Popen(script, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+#     p.wait()
+#     script = ['pip', 'install', 'git+https://github.com/sequitur-g2p/sequitur-g2p@master']
+#     p = subprocess.Popen(script, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+#     p.wait()
 
 
 def create_phonetic_model(dic):
@@ -145,11 +146,12 @@ def create_phonetic_model(dic):
     init_devel = config['init_devel']
     max_iters = config['max_iterations']
 
-    base = '/Users/pablomaciasmunoz/anaconda3/envs/S2T_G2P/bin/python'  # TODO DELETE IN CONTAINER
-    command = os.path.join(read_config_file()['sequitur_path'], 'g2p.py')
+    # base = '/Users/pablomaciasmunoz/anaconda3/envs/S2T_G2P/bin/python'  # TODO DELETE IN CONTAINER
+    # command = os.path.join(read_config_file()['sequitur_path'], 'g2p.py')
+    command = 'g2p.py'
 
     out_model_path = os.path.join(models_folder, 'model0.pm')
-    script = [base, command,
+    script = [command,
               '--train', dic,
               '-I', str(max_iters),
               '--devel', '{}%'.format(init_devel),

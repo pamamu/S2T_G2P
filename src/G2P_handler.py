@@ -38,4 +38,4 @@ class G2PHandler(ContainerHandler):
 
 if __name__ == '__main__':
     handler = G2PHandler('G2P', 'PYRO:MainController@localhost:4040')
-    handler.generate_dic('resources/tmp/input.json', 'resources/tmp')
+    print(handler.generate_dic('resources/tmp/input.json', '/srv/shared_folder'))
