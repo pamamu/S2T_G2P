@@ -4,6 +4,7 @@ import re
 import shutil
 import mmap
 import hashlib
+import socket
 
 info_file = 'resources/info.json'
 config_file = 'config.json'
@@ -205,3 +206,11 @@ def check_word(word, hash_set):
         hash_set.add(hash_value)
         return False
     return True
+
+
+def get_ip():
+    """
+    TODO DOCUMENTATION
+    :return:
+    """
+    return socket.gethostbyname(socket.gethostname())
