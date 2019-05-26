@@ -9,7 +9,6 @@ from utils.sequitur import convert_words, improve_dic
 class G2PHandler(ContainerHandler):
     def __init__(self, container_name, main_uri):
         super(G2PHandler, self).__init__(container_name, main_uri)
-        # install_sequitur()
 
     def run(self, **kwargs):
         if 'input_json' in kwargs and 'output_folder' in kwargs:

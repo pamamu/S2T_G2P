@@ -13,8 +13,6 @@ def generate_phonetic_dic(words_path):
     """
     config = read_config_file()
 
-    # base = '/Users/pablomaciasmunoz/anaconda3/envs/S2T_G2P/bin/python'  # TODO DELETE IN CONTAINER
-    # command = os.path.join(config['sequitur_path'], 'g2p.py')
     command = 'g2p.py'
 
     out_words_path = os.path.join(tmp_folder, 'words.dic')
