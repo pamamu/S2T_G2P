@@ -1,0 +1,7 @@
+certifi==2018.11.29
+numpy==1.16.0
+Pyro4==4.74
+selectors34==1.2
+sequitur==1.0a1
+serpent==1.27
+six==1.12.0
